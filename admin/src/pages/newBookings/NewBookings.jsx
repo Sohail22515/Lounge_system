@@ -1,4 +1,4 @@
-import "./newBookings.scss"; // reuse existing new.scss
+import "./newBookings.scss"; 
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useState } from "react";
@@ -43,12 +43,24 @@ const NewBooking = () => {
               {bookingInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input
-                    id={input.id}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    onChange={handleChange}
-                  />
+
+                  {input.type === "select" ? (
+                    <select id={input.id} onChange={handleChange}>
+                      <option value="">-- Select --</option>
+                      {input.options.map((option, idx) => (
+                        <option key={idx} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      id={input.id}
+                      type={input.type}
+                      placeholder={input.placeholder}
+                      onChange={handleChange}
+                    />
+                  )}
                 </div>
               ))}
               <button onClick={handleClick}>Send</button>

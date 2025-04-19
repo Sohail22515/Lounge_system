@@ -221,5 +221,42 @@ export const bookingInputs = [
     label: "Phone Number",
     type: "text",
     placeholder: "+1 234 567 890",
-  }
+  },
+  {
+    id: "occasion",
+    label: "Occasion",
+    type: "text",
+    placeholder: "Birthday, Wedding, Corporate Event",
+  },
+  {
+    id: "generatorBackup",
+    label: "Generator Backup",
+    type: "select",
+    options: ["Yes", "No"],
+  },
+  {
+    id: "additionalFurniture",
+    label: "Additional Furniture",
+    type: "select",
+    options: ["Yes", "No"],
+  },
+  {
+    id: "additionalLighting",
+    label: "Additional Lighting",
+    type: "select",
+    options: ["Yes", "No"],
+  },
+  {
+    id: "additionalWaiters",
+    label: "Additional Waiters",
+    type: "select",
+    options: ["Yes", "No"],
+  },
+  {
+    id: "catering",
+    label: "Catering",
+    type: "select",
+    options: ["OI", "Outsourced"],
+  },
+  
 ];

@@ -20,6 +20,23 @@ const Datatable = ({ columns }) => {
     }
   };
 
+  const handleApprove = async (id) => {
+    try {
+      // Make the PATCH or PUT request to update status
+      const res = await axios.put(`/${path}/${id}/status`, { status: "Payment pending" });
+
+      // Update the local list state
+      setList((prevList) =>
+        prevList.map((item) =>
+          item._id === id ? { ...item, status: "Payment pending" } : item
+        )
+      );
+    } catch (err) {
+      console.error("Approve error:", err);
+    }
+  };
+  
+
   useEffect(() => {
     setList(data);
   }, [data]);
@@ -28,16 +45,41 @@ const Datatable = ({ columns }) => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 220,
       renderCell: (params) => {
+        // Special case for bookings
+        if (path === "bookings") {
+          return (
+            <div className="cellAction">
+            {params.row.status === "Payment pending" ? (
+              <div className="viewButton">Payment Approve</div>
+            ) : (
+              <div
+                className="viewButton"
+                onClick={() => handleApprove(params.row._id)}
+              >
+                Approve
+              </div>
+            )}
+            <div
+              className="deleteButton"
+              onClick={() => handleDelete(params.row._id)}
+            >
+              Delete
+            </div>
+          </div>
+          );
+        }
+  
+        // Default for other resources
         return (
           <div className="cellAction">
-            <Link
+            {/* <Link
               to={`/${path}/${params.row._id}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">View</div>
-            </Link>
+            </Link> */}
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row._id)}
